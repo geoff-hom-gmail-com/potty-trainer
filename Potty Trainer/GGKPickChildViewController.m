@@ -7,7 +7,6 @@
 //
 
 #import "GGKPickChildViewController.h"
-#import "GGKPottyTrainerViewController.h"
 
 @class GGKSoundModel;
 

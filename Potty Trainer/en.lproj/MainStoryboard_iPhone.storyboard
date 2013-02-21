@@ -98,7 +98,7 @@ Board</string>
                                 <rect key="frame" x="170" y="20" width="130" height="103"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="Themes">
+                                <state key="normal" title="Rewards">
                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -122,10 +122,10 @@ Board</string>
             </objects>
             <point key="canvasLocation" x="850" y="-193"/>
         </scene>
-        <!--View Controller - Settings-->
+        <!--Settings View Controller - Settings-->
         <scene sceneID="7H6-Po-Egx">
             <objects>
-                <viewController id="625-LV-WLU" sceneMemberID="viewController">
+                <viewController id="625-LV-WLU" customClass="GGKSettingsViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="pqX-TK-f4L">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -140,6 +140,9 @@ Board</string>
                             <switch opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="zmO-AZ-oUd">
                                 <rect key="frame" x="102" y="151" width="79" height="27"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="playButtonSound" destination="625-LV-WLU" eventType="touchUpInside" id="kie-Zu-mGa"/>
+                                </connections>
                             </switch>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Reminder time: 4:32 PM" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="KqU-at-37B">
                                 <rect key="frame" x="20" y="186" width="230" height="21"/>
@@ -159,7 +162,17 @@ Board</string>
                                 <state key="highlighted">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="playButtonSound" destination="625-LV-WLU" eventType="touchDown" id="9ur-fj-eWk"/>
+                                </connections>
                             </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="To do: make buttons work" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="IXJ-nM-kTK">
+                                <rect key="frame" x="30" y="62" width="196" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -211,7 +224,7 @@ Board</string>
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Pick Child" id="cnv-Eb-opG"/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
@@ -252,10 +265,10 @@ Board</string>
             </objects>
             <point key="canvasLocation" x="1585" y="-180"/>
         </scene>
-        <!--View Controller - History-->
+        <!--History View Controller - History-->
         <scene sceneID="4jP-xl-t92">
             <objects>
-                <viewController id="ApR-n8-TiD" sceneMemberID="viewController">
+                <viewController id="ApR-n8-TiD" customClass="GGKHistoryViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="FEo-vt-Zxc">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -267,27 +280,191 @@ Board</string>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="VEM-0S-Ndb">
+                                <rect key="frame" x="36" y="178" width="215" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Beta: add successful potty">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="addSuccessfulPotty" destination="ApR-n8-TiD" eventType="touchUpInside" id="UjB-1i-DZe"/>
+                                    <action selector="playButtonSound" destination="ApR-n8-TiD" eventType="touchDown" id="5ao-e7-GhP"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Successful potties: 0" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="9Db-xc-PCI">
+                                <rect key="frame" x="36" y="229" width="187" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="knj-3U-BEk">
+                                <rect key="frame" x="191" y="258" width="60" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="reset">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="addSuccessfulPotty" destination="ApR-n8-TiD" eventType="touchUpInside" id="jAA-Bd-h2h"/>
+                                    <action selector="playButtonSound" destination="ApR-n8-TiD" eventType="touchDown" id="fyx-Ik-iHI"/>
+                                    <action selector="resetNumberOfSuccessfulPotties" destination="ApR-n8-TiD" eventType="touchUpInside" id="xCM-rr-7Ip"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="History" id="lii-hd-mnm"/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
+                    <connections>
+                        <outlet property="successfulPottiesLabel" destination="9Db-xc-PCI" id="9jd-hI-4TG"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IaQ-Hg-Qt9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1221" y="-187"/>
         </scene>
-        <!--View Controller - Themes-->
+        <!--Rewards View Controller - Rewards-->
         <scene sceneID="lDk-to-YQV">
             <objects>
-                <viewController id="d1A-qA-n5q" sceneMemberID="viewController">
+                <viewController id="d1A-qA-n5q" customClass="GGKRewardsViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="tDk-V6-7IC">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Successful potties: None, yet" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="kyU-Sb-kiH">
+                                <rect key="frame" x="20" y="20" width="242" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="5" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" id="Isb-q5-Y37">
+                                <rect key="frame" x="42" y="278" width="37" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation" returnKeyType="done"/>
+                                <connections>
+                                    <action selector="playButtonSound" destination="d1A-qA-n5q" eventType="touchDown" id="vLO-nB-jFc"/>
+                                    <outlet property="delegate" destination="d1A-qA-n5q" id="UIj-2u-IHV"/>
+                                </connections>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="10" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" id="Md4-P4-YDa">
+                                <rect key="frame" x="142" y="278" width="37" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation" returnKeyType="done"/>
+                                <connections>
+                                    <action selector="playButtonSound" destination="d1A-qA-n5q" eventType="touchDown" id="aHM-k8-Ehe"/>
+                                    <outlet property="delegate" destination="d1A-qA-n5q" id="prN-Co-J1f"/>
+                                </connections>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="15" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" id="SEg-pk-GKe">
+                                <rect key="frame" x="242" y="278" width="37" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation" returnKeyType="done"/>
+                                <connections>
+                                    <action selector="playButtonSound" destination="d1A-qA-n5q" eventType="touchDown" id="pmo-89-BEH"/>
+                                    <outlet property="delegate" destination="d1A-qA-n5q" id="gnQ-lq-wdX"/>
+                                </connections>
+                            </textField>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Rewards" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="pyq-cI-srl">
+                                <rect key="frame" x="20" y="243" width="68" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" id="LBY-VC-OAP">
+                                <rect key="frame" x="20" y="316" width="80" height="80"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                <state key="normal">
+                                    <string key="title">Add
+Reward</string>
+                                    <color key="titleColor" red="0.19607843137254902" green="0.30980392156862746" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="addReward:" destination="d1A-qA-n5q" eventType="touchUpInside" id="9wZ-US-ft5"/>
+                                    <action selector="playButtonSound" destination="d1A-qA-n5q" eventType="touchDown" id="FLw-3b-o5w"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" id="oRi-Tl-8zV">
+                                <rect key="frame" x="120" y="316" width="80" height="80"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                <state key="normal">
+                                    <string key="title">Add
+Reward</string>
+                                    <color key="titleColor" red="0.1960784314" green="0.30980392159999998" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="addReward:" destination="d1A-qA-n5q" eventType="touchUpInside" id="V3A-Ma-iIo"/>
+                                    <action selector="playButtonSound" destination="d1A-qA-n5q" eventType="touchDown" id="TSr-xl-eTL"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" id="K2u-H4-SRf">
+                                <rect key="frame" x="220" y="316" width="80" height="80"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                <state key="normal">
+                                    <string key="title">Add
+Reward</string>
+                                    <color key="titleColor" red="0.1960784314" green="0.30980392159999998" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="addReward:" destination="d1A-qA-n5q" eventType="touchUpInside" id="swV-i5-JA8"/>
+                                    <action selector="playButtonSound" destination="d1A-qA-n5q" eventType="touchDown" id="nYS-Dk-1Xt"/>
+                                </connections>
+                            </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="\u2714" id="bFd-cv-7e4">
+                                <rect key="frame" x="20" y="49" width="280" height="158"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="To do: enable &quot;add reward&quot;" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="rQJ-tE-h7B">
+                                <rect key="frame" x="103" y="167" width="206" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Themes" id="VYU-ko-Hnc"/>
+                    <navigationItem key="navigationItem" title="Rewards" id="VYU-ko-Hnc"/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
+                    <connections>
+                        <outlet property="numberOfSuccessesForReward1TextField" destination="Isb-q5-Y37" id="uos-yv-XhB"/>
+                        <outlet property="numberOfSuccessesForReward2TextField" destination="Md4-P4-YDa" id="kHU-M7-KFf"/>
+                        <outlet property="numberOfSuccessesForReward3TextField" destination="SEg-pk-GKe" id="Y8z-HK-M2y"/>
+                        <outlet property="successfulPottiesLabel" destination="kyU-Sb-kiH" id="sMK-Ck-7z4"/>
+                        <outlet property="successfulPottiesTextView" destination="bFd-cv-7e4" id="dUA-Z0-e1k"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0l1-kQ-oou" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -314,6 +491,15 @@ Board</string>
         </scene>
     </scenes>
     <classes>
+        <class className="GGKHistoryViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GGKHistoryViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="addSuccessfulPotty"/>
+                <relationship kind="action" name="playButtonSound"/>
+                <relationship kind="action" name="resetNumberOfSuccessfulPotties"/>
+                <relationship kind="outlet" name="successfulPottiesLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
         <class className="GGKPickChildViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/GGKPickChildViewController.h"/>
             <relationships>
@@ -324,6 +510,24 @@ Board</string>
         </class>
         <class className="GGKPottyTrainerViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/GGKPottyTrainerViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="playButtonSound"/>
+            </relationships>
+        </class>
+        <class className="GGKRewardsViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GGKRewardsViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="addReward:" candidateClass="UIButton"/>
+                <relationship kind="action" name="playButtonSound"/>
+                <relationship kind="outlet" name="numberOfSuccessesForReward1TextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="numberOfSuccessesForReward2TextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="numberOfSuccessesForReward3TextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="successfulPottiesLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="successfulPottiesTextView" candidateClass="UITextView"/>
+            </relationships>
+        </class>
+        <class className="GGKSettingsViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GGKSettingsViewController.h"/>
             <relationships>
                 <relationship kind="action" name="playButtonSound"/>
             </relationships>

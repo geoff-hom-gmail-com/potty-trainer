@@ -9,9 +9,6 @@
 #import "GGKPickChildViewController.h"
 #import "GGKPottyTrainerViewController.h"
 
-NSString *GGKBoyThemeString = @"Boy theme";
-NSString *GGKGirlThemeString = @"Girl theme";
-NSString *GGKThemeKeyString = @"Theme";
 
 @interface GGKPottyTrainerViewController ()
 

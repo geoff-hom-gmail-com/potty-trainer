@@ -24,6 +24,10 @@
 		937652C316C079CB007EA04C /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 937652C116C079CB007EA04C /* MainStoryboard_iPhone.storyboard */; };
 		937652C616C079CB007EA04C /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 937652C416C079CB007EA04C /* MainStoryboard_iPad.storyboard */; };
 		937652C916C079CB007EA04C /* GGKPottyTrainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 937652C816C079CB007EA04C /* GGKPottyTrainerViewController.m */; };
+		937F863416D6A54A007DE572 /* GGKRewardsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 937F863316D6A54A007DE572 /* GGKRewardsViewController.m */; };
+		937F863716D6A61A007DE572 /* GGKSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 937F863616D6A61A007DE572 /* GGKSettingsViewController.m */; };
+		937F863A16D6A947007DE572 /* GGKHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 937F863916D6A947007DE572 /* GGKHistoryViewController.m */; };
+		937F863D16D6AF5D007DE572 /* GGKSavedInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 937F863C16D6AF5D007DE572 /* GGKSavedInfo.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +56,14 @@
 		937652C516C079CB007EA04C /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
 		937652C716C079CB007EA04C /* GGKPottyTrainerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GGKPottyTrainerViewController.h; sourceTree = "<group>"; };
 		937652C816C079CB007EA04C /* GGKPottyTrainerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GGKPottyTrainerViewController.m; sourceTree = "<group>"; };
+		937F863216D6A54A007DE572 /* GGKRewardsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GGKRewardsViewController.h; sourceTree = "<group>"; };
+		937F863316D6A54A007DE572 /* GGKRewardsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GGKRewardsViewController.m; sourceTree = "<group>"; };
+		937F863516D6A61A007DE572 /* GGKSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GGKSettingsViewController.h; sourceTree = "<group>"; };
+		937F863616D6A61A007DE572 /* GGKSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GGKSettingsViewController.m; sourceTree = "<group>"; };
+		937F863816D6A947007DE572 /* GGKHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GGKHistoryViewController.h; sourceTree = "<group>"; };
+		937F863916D6A947007DE572 /* GGKHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GGKHistoryViewController.m; sourceTree = "<group>"; };
+		937F863B16D6AF5D007DE572 /* GGKSavedInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GGKSavedInfo.h; sourceTree = "<group>"; };
+		937F863C16D6AF5D007DE572 /* GGKSavedInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GGKSavedInfo.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,12 +122,20 @@
 			children = (
 				937652C116C079CB007EA04C /* MainStoryboard_iPhone.storyboard */,
 				937652C416C079CB007EA04C /* MainStoryboard_iPad.storyboard */,
+				937F863816D6A947007DE572 /* GGKHistoryViewController.h */,
+				937F863916D6A947007DE572 /* GGKHistoryViewController.m */,
 				9362E42216D49EC600A1B771 /* GGKPickChildViewController.h */,
 				9362E42316D49EC600A1B771 /* GGKPickChildViewController.m */,
 				937652B816C079CB007EA04C /* GGKPottyTrainerAppDelegate.h */,
 				937652B916C079CB007EA04C /* GGKPottyTrainerAppDelegate.m */,
 				937652C716C079CB007EA04C /* GGKPottyTrainerViewController.h */,
 				937652C816C079CB007EA04C /* GGKPottyTrainerViewController.m */,
+				937F863216D6A54A007DE572 /* GGKRewardsViewController.h */,
+				937F863316D6A54A007DE572 /* GGKRewardsViewController.m */,
+				937F863B16D6AF5D007DE572 /* GGKSavedInfo.h */,
+				937F863C16D6AF5D007DE572 /* GGKSavedInfo.m */,
+				937F863516D6A61A007DE572 /* GGKSettingsViewController.h */,
+				937F863616D6A61A007DE572 /* GGKSettingsViewController.m */,
 				9362E42B16D5F17600A1B771 /* GGKSoundModel.h */,
 				9362E42C16D5F17600A1B771 /* GGKSoundModel.m */,
 				9362E42516D4AC2A00A1B771 /* UIColor+GGKColors.h */,
@@ -215,6 +235,10 @@
 				9362E42416D49EC600A1B771 /* GGKPickChildViewController.m in Sources */,
 				9362E42716D4AC2A00A1B771 /* UIColor+GGKColors.m in Sources */,
 				9362E42D16D5F17600A1B771 /* GGKSoundModel.m in Sources */,
+				937F863416D6A54A007DE572 /* GGKRewardsViewController.m in Sources */,
+				937F863716D6A61A007DE572 /* GGKSettingsViewController.m in Sources */,
+				937F863A16D6A947007DE572 /* GGKHistoryViewController.m in Sources */,
+				937F863D16D6AF5D007DE572 /* GGKSavedInfo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
