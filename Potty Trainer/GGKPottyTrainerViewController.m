@@ -17,6 +17,9 @@ NSString *GGKThemeKeyString = @"Theme";
 
 @property (strong, nonatomic) GGKPickChildViewController *pickChildViewController;
 
+// For playing sound.
+@property (strong, nonatomic) GGKSoundModel *soundModel;
+
 @end
 
 @implementation GGKPottyTrainerViewController
@@ -27,12 +30,17 @@ NSString *GGKThemeKeyString = @"Theme";
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)playButtonSound
+{
+    [self.soundModel playButtonTapSound];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
 
-    
+    self.soundModel = [[GGKSoundModel alloc] init];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

@@ -10,6 +10,9 @@
 
 @interface GGKPickChildViewController : UIViewController
 
+// Play sound as aural feedback for pressing button.
+- (IBAction)playButtonSound;
+
 // Set the color theme to one for boys.
 - (IBAction)useBoyTheme;
 

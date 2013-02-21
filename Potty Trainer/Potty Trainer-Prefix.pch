@@ -12,4 +12,6 @@
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
     #import "UIColor+GGKColors.h"
+    #import "GGKSoundModel.h"
+    #import <AVFoundation/AVFoundation.h>
 #endif

@@ -9,6 +9,8 @@
 #import "GGKPickChildViewController.h"
 #import "GGKPottyTrainerViewController.h"
 
+@class GGKSoundModel;
+
 @interface GGKPickChildViewController ()
 
 // The color to use for a boy theme.
@@ -16,6 +18,9 @@
 
 // The color to use for a girl theme.
 @property (strong, nonatomic) UIColor *girlColor;
+
+// For playing sound.
+@property (strong, nonatomic) GGKSoundModel *soundModel;
 
 @end
 
@@ -34,6 +39,11 @@
         // Custom initialization
     }
     return self;
+}
+
+- (IBAction)playButtonSound
+{
+    [self.soundModel playButtonTapSound];
 }
 
 - (IBAction)useBoyTheme {
@@ -55,6 +65,7 @@
     
     self.boyColor = [UIColor cyanColor];
     self.girlColor = [UIColor pinkColor];
+    self.soundModel = [[GGKSoundModel alloc] init];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

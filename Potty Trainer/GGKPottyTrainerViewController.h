@@ -19,6 +19,9 @@ extern NSString *GGKThemeKeyString;
 
 @interface GGKPottyTrainerViewController : UIViewController
 
+// Play sound as aural feedback for pressing button.
+- (IBAction)playButtonSound;
+
 // UIViewController override.
 - (void)viewDidLoad;
 
