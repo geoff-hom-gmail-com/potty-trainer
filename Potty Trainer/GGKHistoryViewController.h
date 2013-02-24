@@ -13,6 +13,9 @@
 // "Successful potties: X".
 @property (weak, nonatomic) IBOutlet UILabel *successfulPottiesLabel;
 
+// checkmarks and x's.
+@property (weak, nonatomic) IBOutlet UILabel *testLabel;
+
 // Note that a successful potty was made.
 - (IBAction)addSuccessfulPotty;
 

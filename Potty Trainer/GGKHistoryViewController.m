@@ -66,7 +66,9 @@
         
         theNumberOfSuccessfulPottiesNumber = @0;
     }
-    self.successfulPottiesLabel.text = [NSString stringWithFormat:@"Successful potties: %@", theNumberOfSuccessfulPottiesNumber];
+    self.successfulPottiesLabel.text = [NSString stringWithFormat:@"Successes(S): %@", theNumberOfSuccessfulPottiesNumber];
+    
+    self.testLabel.text = [NSString stringWithUTF8String:"2/20, W  ...SS.S.n.S.n.."];
 }
 
 - (void)viewDidLoad
