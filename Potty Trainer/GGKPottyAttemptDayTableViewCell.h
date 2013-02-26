@@ -31,9 +31,7 @@
 // Show the day's attempts properly. This includes showing the used labels, hiding unused default labels, removing unused extra labels, assigning success/not labels correctly, and aligning the labels visually.
 - (void)showAttempts;
 
-// Set the date label to show this cell's date. (Format: MMMd.)
-// comment more about the date format
+// Show this cell's date. We want to show only the month and day (e.g., Feb 23).
 - (void)showDate;
-
 
 @end

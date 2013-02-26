@@ -108,6 +108,7 @@
     // If a day is for today, show that specifically. Else, use the normal date formatting.
     NSDictionary *aPottyAttemptDictionary = aPottyAttemptArray[0];
     NSDate *aPottyAttemptDate = aPottyAttemptDictionary[GGKPottyAttemptDateKeyString];
+        
     if ([aPottyAttemptDate dateIsToday]) {
         
         aPottyAttemptDayTableViewCell.dateLabel.text = @"Today";

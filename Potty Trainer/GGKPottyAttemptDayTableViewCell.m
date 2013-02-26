@@ -34,14 +34,37 @@
 - (void)showAttempts
 {
     NSLog(@"PADTVC updateAttemptLabels");
+    
+    // to get a boolean from the nsnumber that was stored
+//    NSNumber *aNumber;
+//    BOOL aBOOL = [aNumber boolValue];
 }
 
 - (void)showDate
 {
-    // The date looks different depending on locale. what are the string methods for NSDate?
-    NSLog(@"showDate");
-    ;
+    NSDictionary *aPottyAttemptDictionary = self.pottyAttemptArray[0];
+    NSDate *theDate = aPottyAttemptDictionary[GGKPottyAttemptDateKeyString];
+    
+    // Abbreviated month and the day (e.g., Feb 23): MMMd.
+    // http://waracle.net/iphone-nsdateformatter-date-formatting-table/
+    NSString *monthDayDateFormatString = [NSDateFormatter dateFormatFromTemplate:@"MMMd" options:0 locale:[NSLocale currentLocale]];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:monthDayDateFormatString];
+    NSString *theDateString = [dateFormatter stringFromDate:theDate];
+    self.dateLabel.text = theDateString;
+    
+    //testing; print date for each entry in the array
+    NSString *monthDayTimeDateFormatString = [NSDateFormatter dateFormatFromTemplate:@"MMMdH" options:0 locale:[NSLocale currentLocale]];
+//    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:monthDayTimeDateFormatString];
+    [self.pottyAttemptArray enumerateObjectsUsingBlock:^(NSDictionary *aPottyAttemptDictionary, NSUInteger idx, BOOL *stop) {
+        
+        NSDate *theDate = aPottyAttemptDictionary[GGKPottyAttemptDateKeyString];
+        NSString *theDateString = [dateFormatter stringFromDate:theDate];
+        NSLog(@"showDate, idx:%d date:%@", idx, theDateString);
+    }];
+    
+    
 }
-
 
 @end
