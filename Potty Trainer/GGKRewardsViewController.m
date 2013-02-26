@@ -199,7 +199,7 @@ NSString *GGKNumberOfSuccessesForReward3KeyString = @"Number of successes for re
     self.successfulPottiesLabel.text = [NSString stringWithFormat:@"Successful potties: %@", theNumberOfSuccessfulPottiesString];
     
     // Unicode check mark: \u2714. (Other check marks: \u2705, \u2713, \u2611.)
-    NSString *aCheckMarkString = [NSString stringWithUTF8String:"\u2714"];
+    NSString *aCheckMarkString = @"\u2714";
     
     NSMutableString *aCheckMarkForEachSuccessfulPottyMutableString = [NSMutableString stringWithCapacity:10];
     for (int i = 0; i < [theNumberOfSuccessfulPottiesNumber intValue]; i++) {

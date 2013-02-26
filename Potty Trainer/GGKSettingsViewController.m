@@ -37,6 +37,13 @@
     [self.soundModel playButtonTapSound];
 }
 
+- (IBAction)resetHistory
+{
+    // should be showing an alert
+    // but for testing now, just do it
+    [[NSUserDefaults standardUserDefaults] setObject:nil forKey:GGKPottyAttemptsKeyString];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];

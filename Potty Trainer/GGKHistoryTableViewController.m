@@ -6,9 +6,15 @@
 //  Copyright (c) 2013 Geoff Hom. All rights reserved.
 //
 
+#import "GGKHistoryHeaderCell.h"
 #import "GGKHistoryTableViewController.h"
+#import "GGKPottyAttemptDayTableViewCell.h"
+#import "NSDate+GGKDate.h"
 
 @interface GGKHistoryTableViewController ()
+
+// The table header. May need to modify after initial data loaded.
+//@property (strong, nonatomic) UIView *headerView;
 
 // An array of all potty-attempt days. Each day is also an array.
 @property (strong, nonatomic) NSArray *pottyAttemptDayArray;
@@ -16,9 +22,23 @@
 // For playing sound.
 @property (strong, nonatomic) GGKSoundModel *soundModel;
 
+// Return a day/date that corresponds to the given table row. Note that the time of day is unspecified.
+//- (NSDate *)dateForRow:(NSUInteger)theRow;
+
+// Return the array of potty attempts for the given day/date.
+//- (NSArray *)pottyAttemptArrayForDate:(NSDate *)theDate;
+
+// Check the saved data for potty attempts.
+- (void)updatePottyAttemptDayArray;
+
 @end
 
 @implementation GGKHistoryTableViewController
+
+- (void)addPottyViewControllerDidAddPottyAttempt:(UIViewController *)theViewController
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 - (void)didReceiveMemoryWarning
 {
@@ -46,6 +66,13 @@
     [self.soundModel playButtonTapSound];
 }
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"showAddPottyView"]) {
+        
+        [segue.destinationViewController setDelegate:self];
+    }
+}
 
 /*
  // Override to support conditional editing of the table view.
@@ -66,16 +93,32 @@
  }
  */
 
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"HTVC tV cFRAIP");
+//    NSLog(@"HTVC tV cFRAIP");
     static NSString *CellIdentifier = @"PottyAttemptDayCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    GGKPottyAttemptDayTableViewCell *aPottyAttemptDayTableViewCell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
-    // Configure the cell...
+    // The top row should be the last element in the array, then go backward.
+    NSUInteger theRow = indexPath.row;
+    NSInteger arrayIndex = self.pottyAttemptDayArray.count - 1 - theRow;
+    NSArray *aPottyAttemptArray = self.pottyAttemptDayArray[arrayIndex];
+    aPottyAttemptDayTableViewCell.pottyAttemptArray = aPottyAttemptArray;
     
-    return cell;
+    // If a day is for today, show that specifically. Else, use the normal date formatting.
+    NSDictionary *aPottyAttemptDictionary = aPottyAttemptArray[0];
+    NSDate *aPottyAttemptDate = aPottyAttemptDictionary[GGKPottyAttemptDateKeyString];
+    if ([aPottyAttemptDate dateIsToday]) {
+        
+        aPottyAttemptDayTableViewCell.dateLabel.text = @"Today";
+    } else {
+        
+        [aPottyAttemptDayTableViewCell showDate];
+    }
+    
+    [aPottyAttemptDayTableViewCell showAttempts];
+    
+    return aPottyAttemptDayTableViewCell;
 }
 
 /*
@@ -92,10 +135,9 @@
  }
  */
 
-
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSLog(@"HTVC tV didSelectRowAtIndexPath");
     // Navigation logic may go here. Create and push another view controller.
     /*
      <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
@@ -112,27 +154,78 @@
  }
  */
 
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    
-    NSLog(@"HTVC tV nORIS");
-    return 2;
+    NSLog(@"HTVC tV nORIS: %d", self.pottyAttemptDayArray.count);
+    return self.pottyAttemptDayArray.count;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     // Header view, for iOS 5+ and storyboards. Since we can't have just a UIView in a storyboard, we're using a trick: make the header view in a prototype cell, then use the table view to create it.
     
-    static NSString *CellIdentifier = @"HistoryHeader";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    static NSString *CellIdentifier = @"HistoryHeaderCell";
+    GGKHistoryHeaderCell *theHistoryHeaderCell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     // We don't want the entire cell, just its view. This will prevent touches from going under the header. Also, the view's background color will be clear by default, so we need to set that.
-    UIView *theHeaderView = cell.contentView;
+    UIView *theHeaderView = theHistoryHeaderCell.contentView;
     theHeaderView.backgroundColor = self.tableView.backgroundColor;
     
+    // If no data to show, then hide the time labels.
+    if (self.pottyAttemptDayArray.count == 0) {
+        
+        theHistoryHeaderCell.startMarkLabel.hidden = YES;
+        theHistoryHeaderCell.endMarkLabel.hidden = YES;
+    } else {
+        
+        theHistoryHeaderCell.startMarkLabel.hidden = NO;
+        theHistoryHeaderCell.endMarkLabel.hidden = NO;
+    }
+    
     return theHeaderView;
+}
+
+- (void)updatePottyAttemptDayArray
+{
+    self.pottyAttemptDayArray = [[NSUserDefaults standardUserDefaults] objectForKey:GGKPottyAttemptsKeyString];
+    
+//    if (self.pottyAttemptDayArray == nil) {
+//        
+        NSLog(@"HTVC uPADA2");
+//        NSDate *todayDate = [NSDate date];
+//        NSDictionary *aPottyAttemptDictionary = @{GGKPottyAttemptDateKeyString:todayDate};
+//        NSArray *pottyAttemptsForADay = @[aPottyAttemptDictionary];
+//        self.pottyAttemptDayArray = @[pottyAttemptsForADay];
+//    } else {
+//        
+//        NSLog(@"HTVC uPADA3");
+//
+//        // Add just the date for every day after the most-recent attempt to today.
+//        
+//        NSDictionary *theMostRecentDatePottyAttemptDictionary = [self.pottyAttemptDayArray lastObject][0];
+//        NSDate *theMostRecentDate = theMostRecentDatePottyAttemptDictionary[GGKPottyAttemptDateKeyString];
+//        
+//        NSDate *todayDate = [NSDate date];
+//        NSCalendar *gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+//        NSInteger todayDay = [gregorianCalendar ordinalityOfUnit:NSDayCalendarUnit inUnit:NSEraCalendarUnit forDate:todayDate];
+//        NSInteger theMostRecentDateDay = [gregorianCalendar ordinalityOfUnit:NSDayCalendarUnit inUnit:NSEraCalendarUnit forDate:theMostRecentDate];
+//        NSInteger theNumberOfDaysToAdd = todayDay - theMostRecentDateDay;
+//
+//        NSMutableArray *pottyAttemptDayMutableArray = [self.pottyAttemptDayArray mutableCopy];
+//        for (int i = 1; i <= theNumberOfDaysToAdd; i++) {
+//            
+//            NSDateComponents *theNextDayDateComponents = [[NSDateComponents alloc] init];
+//            [theNextDayDateComponents setDay:i];
+//            NSDate *theNextDate = [gregorianCalendar dateByAddingComponents:theNextDayDateComponents toDate:theMostRecentDate options:0];
+//            NSDictionary *aPottyAttemptDictionary = @{GGKPottyAttemptDateKeyString:theNextDate};
+//            NSArray *pottyAttemptsForADay = @[aPottyAttemptDictionary];
+//            [pottyAttemptDayMutableArray addObject:pottyAttemptsForADay];
+//        }
+//        self.pottyAttemptDayArray = [pottyAttemptDayMutableArray copy];
+//    }
+    
+//    [[NSUserDefaults standardUserDefaults] setObject:self.pottyAttemptDayArray forKey:GGKPottyAttemptsKeyString];
 }
 
 - (void)viewDidLoad
@@ -145,10 +238,17 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
-//    self.tableView.tableHeaderView = nil;
-    
     self.soundModel = [[GGKSoundModel alloc] init];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    
+    [super viewWillAppear:animated];
+    
+    // Reload the data and refresh the table each time the view appears. This is just more robust. Data may have been added or deleted, but also the date may have changed, so relative dates (e.g. today) will change if displayed.
+    // When the table is first being shown, we might think this would result in the table reloading its data twice. However, that doesn't seem to be the case, so that's good.
+    self.pottyAttemptDayArray = [[NSUserDefaults standardUserDefaults] objectForKey:GGKPottyAttemptsKeyString];
+    [self.tableView reloadData];
+}
 
 @end

@@ -13,4 +13,7 @@
 // Play sound as aural feedback for pressing button.
 - (IBAction)playButtonSound;
 
+// Ask the user to confirm that she wants to reset the history of potty attempts.
+- (IBAction)resetHistory;
+
 @end
