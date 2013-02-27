@@ -6,15 +6,15 @@
 //  Copyright (c) 2013 Geoff Hom. All rights reserved.
 //
 
+#import "GGKHistoryForDayTableViewController.h"
 #import "GGKHistoryHeaderCell.h"
 #import "GGKHistoryTableViewController.h"
 #import "GGKPottyAttemptDayTableViewCell.h"
-#import "NSDate+GGKDate.h"
 
 @interface GGKHistoryTableViewController ()
 
-// The table header. May need to modify after initial data loaded.
-//@property (strong, nonatomic) UIView *headerView;
+// Minutes between the start and end times. For calculating the range of the timeline.
+@property (assign, nonatomic) NSInteger endMinutesAfterStartTimeInteger;
 
 // An array of all potty-attempt days. Each day is also an array.
 @property (strong, nonatomic) NSArray *pottyAttemptDayArray;
@@ -22,14 +22,11 @@
 // For playing sound.
 @property (strong, nonatomic) GGKSoundModel *soundModel;
 
-// Return a day/date that corresponds to the given table row. Note that the time of day is unspecified.
-//- (NSDate *)dateForRow:(NSUInteger)theRow;
-
-// Return the array of potty attempts for the given day/date.
-//- (NSArray *)pottyAttemptArrayForDate:(NSDate *)theDate;
+// For calculating the time from the start time.
+@property (strong, nonatomic) NSDateComponents *startTimeDateComponents;
 
 // Check the saved data for potty attempts.
-- (void)updatePottyAttemptDayArray;
+//- (void)updatePottyAttemptDayArray;
 
 @end
 
@@ -44,6 +41,31 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)historyForDayTableViewControllerDidDeleteAttempt:(id)sender
+{
+    GGKHistoryForDayTableViewController *aHistoryForDayTableViewController = (GGKHistoryForDayTableViewController *)sender;
+    NSArray *theNewPottyAttemptArray = aHistoryForDayTableViewController.pottyAttemptArray;
+    
+    NSIndexPath *theIndexPath = [self.tableView indexPathForSelectedRow];
+    NSInteger theRow = theIndexPath.row;
+    
+    // The first row is the last element in the data array.
+    NSInteger theIndex = self.pottyAttemptDayArray.count - 1 - theRow;
+    
+    NSMutableArray *aMutableArray = [self.pottyAttemptDayArray mutableCopy];
+    if ([theNewPottyAttemptArray count] == 0) {
+        
+        [aMutableArray removeObjectAtIndex:theIndex];
+    } else {
+        
+        [aMutableArray replaceObjectAtIndex:theIndex withObject:theNewPottyAttemptArray];
+    }
+    self.pottyAttemptDayArray = [aMutableArray copy];
+    
+    // Save data.
+    [[NSUserDefaults standardUserDefaults] setObject:self.pottyAttemptDayArray forKey:GGKPottyAttemptsKeyString];
 }
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -71,6 +93,17 @@
     if ([segue.identifier isEqualToString:@"showAddPottyView"]) {
         
         [segue.destinationViewController setDelegate:self];
+    } else if ([segue.identifier isEqualToString:@"showHistoryForDay"]) {
+        
+        GGKHistoryForDayTableViewController *aHistoryForDayTableViewController = segue.destinationViewController;
+        NSIndexPath *theIndexPath = [self.tableView indexPathForSelectedRow];
+        NSInteger theRow = theIndexPath.row;
+        
+        // The first row is the last element in the data array.
+        NSInteger theIndex = self.pottyAttemptDayArray.count - 1 - theRow;
+        aHistoryForDayTableViewController.pottyAttemptArray = self.pottyAttemptDayArray[theIndex];
+        
+        aHistoryForDayTableViewController.delegate = self;
     }
 }
 
@@ -98,6 +131,9 @@
 //    NSLog(@"HTVC tV cFRAIP");
     static NSString *CellIdentifier = @"PottyAttemptDayCell";
     GGKPottyAttemptDayTableViewCell *aPottyAttemptDayTableViewCell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    
+    aPottyAttemptDayTableViewCell.startTimeDateComponents = self.startTimeDateComponents;
+    aPottyAttemptDayTableViewCell.endMinutesAfterStartTimeInteger = self.endMinutesAfterStartTimeInteger;
     
     // The top row should be the last element in the array, then go backward.
     NSUInteger theRow = indexPath.row;
@@ -138,7 +174,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"HTVC tV didSelectRowAtIndexPath");
+//    NSLog(@"HTVC tV didSelectRowAtIndexPath");
     // Navigation logic may go here. Create and push another view controller.
     /*
      <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
@@ -158,7 +194,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    NSLog(@"HTVC tV nORIS: %d", self.pottyAttemptDayArray.count);
+//    NSLog(@"HTVC tV nORIS: %d", self.pottyAttemptDayArray.count);
     return self.pottyAttemptDayArray.count;
 }
 
@@ -187,47 +223,47 @@
     return theHeaderView;
 }
 
-- (void)updatePottyAttemptDayArray
-{
-    self.pottyAttemptDayArray = [[NSUserDefaults standardUserDefaults] objectForKey:GGKPottyAttemptsKeyString];
-    
-//    if (self.pottyAttemptDayArray == nil) {
-//        
-        NSLog(@"HTVC uPADA2");
-//        NSDate *todayDate = [NSDate date];
-//        NSDictionary *aPottyAttemptDictionary = @{GGKPottyAttemptDateKeyString:todayDate};
-//        NSArray *pottyAttemptsForADay = @[aPottyAttemptDictionary];
-//        self.pottyAttemptDayArray = @[pottyAttemptsForADay];
-//    } else {
-//        
-//        NSLog(@"HTVC uPADA3");
-//
-//        // Add just the date for every day after the most-recent attempt to today.
-//        
-//        NSDictionary *theMostRecentDatePottyAttemptDictionary = [self.pottyAttemptDayArray lastObject][0];
-//        NSDate *theMostRecentDate = theMostRecentDatePottyAttemptDictionary[GGKPottyAttemptDateKeyString];
-//        
-//        NSDate *todayDate = [NSDate date];
-//        NSCalendar *gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-//        NSInteger todayDay = [gregorianCalendar ordinalityOfUnit:NSDayCalendarUnit inUnit:NSEraCalendarUnit forDate:todayDate];
-//        NSInteger theMostRecentDateDay = [gregorianCalendar ordinalityOfUnit:NSDayCalendarUnit inUnit:NSEraCalendarUnit forDate:theMostRecentDate];
-//        NSInteger theNumberOfDaysToAdd = todayDay - theMostRecentDateDay;
-//
-//        NSMutableArray *pottyAttemptDayMutableArray = [self.pottyAttemptDayArray mutableCopy];
-//        for (int i = 1; i <= theNumberOfDaysToAdd; i++) {
-//            
-//            NSDateComponents *theNextDayDateComponents = [[NSDateComponents alloc] init];
-//            [theNextDayDateComponents setDay:i];
-//            NSDate *theNextDate = [gregorianCalendar dateByAddingComponents:theNextDayDateComponents toDate:theMostRecentDate options:0];
-//            NSDictionary *aPottyAttemptDictionary = @{GGKPottyAttemptDateKeyString:theNextDate};
-//            NSArray *pottyAttemptsForADay = @[aPottyAttemptDictionary];
-//            [pottyAttemptDayMutableArray addObject:pottyAttemptsForADay];
-//        }
-//        self.pottyAttemptDayArray = [pottyAttemptDayMutableArray copy];
-//    }
-    
-//    [[NSUserDefaults standardUserDefaults] setObject:self.pottyAttemptDayArray forKey:GGKPottyAttemptsKeyString];
-}
+//- (void)updatePottyAttemptDayArray
+//{
+//    self.pottyAttemptDayArray = [[NSUserDefaults standardUserDefaults] objectForKey:GGKPottyAttemptsKeyString];
+//    
+////    if (self.pottyAttemptDayArray == nil) {
+////        
+//        NSLog(@"HTVC uPADA2");
+////        NSDate *todayDate = [NSDate date];
+////        NSDictionary *aPottyAttemptDictionary = @{GGKPottyAttemptDateKeyString:todayDate};
+////        NSArray *pottyAttemptsForADay = @[aPottyAttemptDictionary];
+////        self.pottyAttemptDayArray = @[pottyAttemptsForADay];
+////    } else {
+////        
+////        NSLog(@"HTVC uPADA3");
+////
+////        // Add just the date for every day after the most-recent attempt to today.
+////        
+////        NSDictionary *theMostRecentDatePottyAttemptDictionary = [self.pottyAttemptDayArray lastObject][0];
+////        NSDate *theMostRecentDate = theMostRecentDatePottyAttemptDictionary[GGKPottyAttemptDateKeyString];
+////        
+////        NSDate *todayDate = [NSDate date];
+////        NSCalendar *gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+////        NSInteger todayDay = [gregorianCalendar ordinalityOfUnit:NSDayCalendarUnit inUnit:NSEraCalendarUnit forDate:todayDate];
+////        NSInteger theMostRecentDateDay = [gregorianCalendar ordinalityOfUnit:NSDayCalendarUnit inUnit:NSEraCalendarUnit forDate:theMostRecentDate];
+////        NSInteger theNumberOfDaysToAdd = todayDay - theMostRecentDateDay;
+////
+////        NSMutableArray *pottyAttemptDayMutableArray = [self.pottyAttemptDayArray mutableCopy];
+////        for (int i = 1; i <= theNumberOfDaysToAdd; i++) {
+////            
+////            NSDateComponents *theNextDayDateComponents = [[NSDateComponents alloc] init];
+////            [theNextDayDateComponents setDay:i];
+////            NSDate *theNextDate = [gregorianCalendar dateByAddingComponents:theNextDayDateComponents toDate:theMostRecentDate options:0];
+////            NSDictionary *aPottyAttemptDictionary = @{GGKPottyAttemptDateKeyString:theNextDate};
+////            NSArray *pottyAttemptsForADay = @[aPottyAttemptDictionary];
+////            [pottyAttemptDayMutableArray addObject:pottyAttemptsForADay];
+////        }
+////        self.pottyAttemptDayArray = [pottyAttemptDayMutableArray copy];
+////    }
+//    
+////    [[NSUserDefaults standardUserDefaults] setObject:self.pottyAttemptDayArray forKey:GGKPottyAttemptsKeyString];
+//}
 
 - (void)viewDidLoad
 {
@@ -240,6 +276,17 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
     self.soundModel = [[GGKSoundModel alloc] init];
+    
+    // On 24-hour clock.
+    NSInteger theStartHour = 6;
+    NSInteger theEndHour = 22;
+    
+    NSDateComponents *aDateComponents = [[NSDateComponents alloc] init];
+    [aDateComponents setHour:theStartHour];
+    [aDateComponents setMinute:0];
+    self.startTimeDateComponents = aDateComponents;
+    
+    self.endMinutesAfterStartTimeInteger = (theEndHour - theStartHour) * 60;
 }
 
 - (void)viewWillAppear:(BOOL)animated {

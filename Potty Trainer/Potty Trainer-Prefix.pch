@@ -15,4 +15,5 @@
     #import "GGKSoundModel.h"
     #import <AVFoundation/AVFoundation.h>
     #import "GGKSavedInfo.h"
+    #import "NSDate+GGKDate.h"
 #endif

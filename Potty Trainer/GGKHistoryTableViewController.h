@@ -9,10 +9,13 @@
 #import "GGKAddPottyViewController.h"
 #import <UIKit/UIKit.h>
 
-@interface GGKHistoryTableViewController : UITableViewController <GGKAddPottyViewControllerDelegate>
+@interface GGKHistoryTableViewController : UITableViewController <GGKAddPottyViewControllerDelegate, GGKHistoryForDayTableViewControllerDelegate>
 
 - (void)addPottyViewControllerDidAddPottyAttempt:(UIViewController *)theViewController;
 // So, dismiss the view controller.
+
+- (void)historyForDayTableViewControllerDidDeleteAttempt:(id)sender;
+// So, get the updated data for that day. If nil, delete that day from the array. Else, put that updated data in the array.
 
 // Play sound as aural feedback for pressing button.
 - (IBAction)playButtonSound;

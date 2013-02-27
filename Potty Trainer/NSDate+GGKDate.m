@@ -58,4 +58,29 @@
     return dateIsToday;
 }
 
+- (NSInteger)minutesAfterTime:(NSDateComponents *)theDateComponents
+{
+    NSCalendar *gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSCalendarUnit aCalendarUnit = NSMinuteCalendarUnit | NSHourCalendarUnit;
+    NSDateComponents *thisDateDateComponents = [gregorianCalendar components:aCalendarUnit fromDate:self];
+    
+    NSInteger theDateMinutes = theDateComponents.hour * 60 + theDateComponents.minute;
+    NSInteger thisDateMinutes = thisDateDateComponents.hour * 60 + thisDateDateComponents.minute;
+    NSInteger theMinutesAfterInteger = thisDateMinutes - theDateMinutes;
+    
+    return theMinutesAfterInteger;
+}
+
+- (NSString *)monthDayString
+{
+    // Abbreviated month and the day (e.g., Feb 23): MMMd.
+    // http://waracle.net/iphone-nsdateformatter-date-formatting-table/
+    
+    NSString *monthDayDateFormatString = [NSDateFormatter dateFormatFromTemplate:@"MMMd" options:0 locale:[NSLocale currentLocale]];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:monthDayDateFormatString];
+    NSString *theDateString = [dateFormatter stringFromDate:self];
+    return theDateString;
+}
+
 @end

@@ -8,6 +8,10 @@
 
 #import "GGKPottyAttemptDayTableViewCell.h"
 
+@interface GGKPottyAttemptDayTableViewCell ()
+
+@end
+
 @implementation GGKPottyAttemptDayTableViewCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -33,38 +37,56 @@
 // Show the day's attempts properly. This includes showing the used labels, hiding unused default labels, removing unused extra labels, assigning success/not labels correctly, and aligning the labels visually.
 - (void)showAttempts
 {
-    NSLog(@"PADTVC updateAttemptLabels");
+    static NSString *CheckMarkString = @"\u2714";
+    static NSString *XMarkString = @"\u2718";
     
-    // to get a boolean from the nsnumber that was stored
-//    NSNumber *aNumber;
-//    BOOL aBOOL = [aNumber boolValue];
+    NSLog(@"PADTVC updateAttemptLabels");
+    self.attempt2Label.hidden = YES;
+    
+    NSDictionary *aPottyAttemptDictionary = self.pottyAttemptArray[0];
+    
+    // Assign success label.
+    NSNumber *theAttemptWasSuccessfulBOOLNumber = aPottyAttemptDictionary[GGKPottyAttemptWasSuccessfulNumberKeyString];
+    BOOL theAttemptWasSuccessfulBOOL = [theAttemptWasSuccessfulBOOLNumber boolValue];
+    NSString *theAttemptString;
+    if (theAttemptWasSuccessfulBOOL) {
+        
+        theAttemptString = CheckMarkString;
+    } else {
+        
+        theAttemptString = XMarkString;
+    }
+    self.attempt1Label.text = theAttemptString;
+    
+    // Align label along timeline. If at or before the start time, put at start mark. If at or after the end time, put at end mark. Else, put between, at a proportionate amount.
+
+    NSInteger startXInteger = self.startMarkLabel.center.x;
+    NSInteger endXInteger = self.endMarkLabel.center.x;
+//    NSLog(@"PADTV sA startX:%d endX:%d", startXInteger, endXInteger);
+    
+    NSDate *aDate = aPottyAttemptDictionary[GGKPottyAttemptDateKeyString];
+    
+    NSInteger minutesAfterStartTimeInteger = [aDate minutesAfterTime:self.startTimeDateComponents];
+    CGPoint theNewCenterPoint;
+    if (minutesAfterStartTimeInteger < 0) {
+        
+        theNewCenterPoint = CGPointMake(startXInteger, self.attempt1Label.center.y);
+    } else if (minutesAfterStartTimeInteger > self.endMinutesAfterStartTimeInteger) {
+        
+        theNewCenterPoint = CGPointMake(endXInteger, self.attempt1Label.center.y);
+    } else {
+        
+        NSInteger theProportionalXInteger = (endXInteger - startXInteger) * minutesAfterStartTimeInteger / self.endMinutesAfterStartTimeInteger;
+        theNewCenterPoint = CGPointMake(startXInteger + theProportionalXInteger, self.attempt1Label.center.y);
+    }
+    self.attempt1Label.center = theNewCenterPoint;    
 }
 
 - (void)showDate
 {
     NSDictionary *aPottyAttemptDictionary = self.pottyAttemptArray[0];
     NSDate *theDate = aPottyAttemptDictionary[GGKPottyAttemptDateKeyString];
-    
-    // Abbreviated month and the day (e.g., Feb 23): MMMd.
-    // http://waracle.net/iphone-nsdateformatter-date-formatting-table/
-    NSString *monthDayDateFormatString = [NSDateFormatter dateFormatFromTemplate:@"MMMd" options:0 locale:[NSLocale currentLocale]];
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:monthDayDateFormatString];
-    NSString *theDateString = [dateFormatter stringFromDate:theDate];
-    self.dateLabel.text = theDateString;
-    
-    //testing; print date for each entry in the array
-    NSString *monthDayTimeDateFormatString = [NSDateFormatter dateFormatFromTemplate:@"MMMdH" options:0 locale:[NSLocale currentLocale]];
-//    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:monthDayTimeDateFormatString];
-    [self.pottyAttemptArray enumerateObjectsUsingBlock:^(NSDictionary *aPottyAttemptDictionary, NSUInteger idx, BOOL *stop) {
-        
-        NSDate *theDate = aPottyAttemptDictionary[GGKPottyAttemptDateKeyString];
-        NSString *theDateString = [dateFormatter stringFromDate:theDate];
-        NSLog(@"showDate, idx:%d date:%@", idx, theDateString);
-    }];
-    
-    
+    self.dateLabel.text = [theDate monthDayString];
 }
 
 @end

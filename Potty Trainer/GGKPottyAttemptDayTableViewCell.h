@@ -10,8 +10,11 @@
 
 @interface GGKPottyAttemptDayTableViewCell : UITableViewCell
 
-// The date of the potty attempts.
-//@property (nonatomic, strong) NSDate *date;
+// For showing an attempt.
+@property (nonatomic, weak) IBOutlet UILabel *attempt1Label;
+
+// For showing another attempt.
+@property (nonatomic, weak) IBOutlet UILabel *attempt2Label;
 
 // For showing the date of the potty attempts. E.g., "2/22, Fri."
 @property (nonatomic, weak) IBOutlet UILabel *dateLabel;
@@ -19,14 +22,17 @@
 // For marking the end time of the range shown.
 @property (nonatomic, weak) IBOutlet UILabel *endMarkLabel;
 
-// For showing the 1st attempt.
-@property (nonatomic, weak) IBOutlet UILabel *attempt1Label;
+// Minutes between the start and end times. For calculating the range of the timeline.
+@property (assign, nonatomic) NSInteger endMinutesAfterStartTimeInteger;
 
 // An array of the potty attempts for this date.
 @property (nonatomic, strong) NSArray *pottyAttemptArray;
 
 // For marking the start time of the range shown.
 @property (nonatomic, weak) IBOutlet UILabel *startMarkLabel;
+
+// For calculating the time from the start time.
+@property (strong, nonatomic) NSDateComponents *startTimeDateComponents;
 
 // Show the day's attempts properly. This includes showing the used labels, hiding unused default labels, removing unused extra labels, assigning success/not labels correctly, and aligning the labels visually.
 - (void)showAttempts;
