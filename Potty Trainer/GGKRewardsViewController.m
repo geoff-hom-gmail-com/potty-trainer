@@ -190,11 +190,26 @@ NSString *GGKNumberOfSuccessesForReward3KeyString = @"Number of successes for re
 
 - (void)updateLabels
 {
-    NSNumber *theNumberOfSuccessfulPottiesNumber = [[NSUserDefaults standardUserDefaults] objectForKey:GGKNumberOfSuccessfulPottiesKeyString];
-    NSString *theNumberOfSuccessfulPottiesString = @"None, yet";
-    if ([theNumberOfSuccessfulPottiesNumber intValue] >= 1) {
+    // Get number of successful potties.
+    NSArray *aPottyAttemptDayArray = [[NSUserDefaults standardUserDefaults] objectForKey:GGKPottyAttemptsKeyString];
+    __block NSInteger theNumberOfSuccessesInteger = 0;
+    [aPottyAttemptDayArray enumerateObjectsUsingBlock:^(NSArray *anAttemptArray, NSUInteger idx1, BOOL *stop1) {
         
-        theNumberOfSuccessfulPottiesString = [theNumberOfSuccessfulPottiesNumber stringValue];
+        [anAttemptArray enumerateObjectsUsingBlock:^(NSDictionary *anAttemptDictionary, NSUInteger idx2, BOOL *stop2) {
+            
+            NSNumber *anAttemptWasSuccessfulBOOLNumber = anAttemptDictionary[GGKPottyAttemptWasSuccessfulNumberKeyString];
+            BOOL anAttemptWasSuccessfulBOOL = [anAttemptWasSuccessfulBOOLNumber boolValue];
+            if (anAttemptWasSuccessfulBOOL) {
+                
+                theNumberOfSuccessesInteger++;
+            }
+        }];
+    }];
+    
+    NSString *theNumberOfSuccessfulPottiesString = @"None, yet";
+    if (theNumberOfSuccessesInteger >= 1) {
+        
+        theNumberOfSuccessfulPottiesString = [NSString stringWithFormat:@"%d", theNumberOfSuccessesInteger];
     }
     self.successfulPottiesLabel.text = [NSString stringWithFormat:@"Successful potties: %@", theNumberOfSuccessfulPottiesString];
     
@@ -202,7 +217,7 @@ NSString *GGKNumberOfSuccessesForReward3KeyString = @"Number of successes for re
     NSString *aCheckMarkString = @"\u2714";
     
     NSMutableString *aCheckMarkForEachSuccessfulPottyMutableString = [NSMutableString stringWithCapacity:10];
-    for (int i = 0; i < [theNumberOfSuccessfulPottiesNumber intValue]; i++) {
+    for (int i = 0; i < theNumberOfSuccessesInteger; i++) {
         
         [aCheckMarkForEachSuccessfulPottyMutableString appendString:aCheckMarkString];
     }

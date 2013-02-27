@@ -10,7 +10,7 @@
 
 NSString *GGKBoyThemeString = @"Boy theme";
 NSString *GGKGirlThemeString = @"Girl theme";
-NSString *GGKNumberOfSuccessfulPottiesKeyString = @"Number of successful potties";
+//NSString *GGKNumberOfSuccessfulPottiesKeyString = @"Number of successful potties";
 NSString *GGKPottyAttemptDateKeyString = @"Potty-attempt date";
 NSString *GGKPottyAttemptWasSuccessfulNumberKeyString = @"Potty-attempt-was-successful number";
 NSString *GGKPottyAttemptsKeyString = @"Potty attempts";

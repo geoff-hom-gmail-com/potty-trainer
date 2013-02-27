@@ -17,6 +17,14 @@
 
 @implementation GGKSettingsViewController
 
+- (void)alertView:(UIAlertView *)theAlertView clickedButtonAtIndex:(NSInteger)theButtonIndex
+{
+    if ([[theAlertView buttonTitleAtIndex:theButtonIndex] isEqualToString:@"OK"]) {
+        
+        [[NSUserDefaults standardUserDefaults] setObject:nil forKey:GGKPottyAttemptsKeyString];
+    }
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -39,9 +47,10 @@
 
 - (IBAction)resetHistory
 {
-    // should be showing an alert
-    // but for testing now, just do it
-    [[NSUserDefaults standardUserDefaults] setObject:nil forKey:GGKPottyAttemptsKeyString];
+    // Put the cancel button on the right, since this is a potentially risky action.
+    UIAlertView *anAlertView = [[UIAlertView alloc] initWithTitle:@"Delete potty history?" message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", @"Cancel", nil];
+    anAlertView.cancelButtonIndex = 1;
+    [anAlertView show];
 }
 
 - (void)viewDidLoad

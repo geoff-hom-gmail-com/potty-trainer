@@ -376,7 +376,7 @@ Board</string>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Z8-4w-96b" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1316" y="-193"/>
+            <point key="canvasLocation" x="1218" y="-201"/>
         </scene>
         <!--Add Potty View Controller - Add Potty-->
         <scene sceneID="Yh1-sF-eYY">
@@ -462,7 +462,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="07X-Iw-0bE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1716" y="-335"/>
+            <point key="canvasLocation" x="1566" y="-391"/>
         </scene>
         <!--History For Day Table View Controller - History, [date]-->
         <scene sceneID="8LF-dF-bNJ">
@@ -512,7 +512,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7WL-fs-Wma" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1690" y="247"/>
+            <point key="canvasLocation" x="1566" y="177"/>
         </scene>
         <!--View Controller - Message Board-->
         <scene sceneID="qr4-t7-qVL">
@@ -528,7 +528,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qko-uj-5b7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2221" y="34"/>
+            <point key="canvasLocation" x="1921" y="-68"/>
         </scene>
         <!--Rewards View Controller - Rewards-->
         <scene sceneID="lDk-to-YQV">
@@ -687,82 +687,6 @@ Reward</string>
             <point key="canvasLocation" x="471" y="-193"/>
         </scene>
     </scenes>
-    <classes>
-        <class className="GGKAddPottyViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/GGKAddPottyViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="playButtonSound"/>
-                <relationship kind="action" name="savePottyAttempt"/>
-                <relationship kind="outlet" name="datePicker" candidateClass="UIDatePicker"/>
-                <relationship kind="outlet" name="successfulSegmentedControl" candidateClass="UISegmentedControl"/>
-            </relationships>
-        </class>
-        <class className="GGKHistoryForDayTableViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/GGKHistoryForDayTableViewController.h"/>
-        </class>
-        <class className="GGKHistoryHeaderCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/GGKHistoryHeaderCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="endMarkLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="startMarkLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="GGKHistoryTableViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/GGKHistoryTableViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="playButtonSound"/>
-            </relationships>
-        </class>
-        <class className="GGKPickChildViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/GGKPickChildViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="playButtonSound"/>
-                <relationship kind="action" name="useBoyTheme"/>
-                <relationship kind="action" name="useGirlTheme"/>
-            </relationships>
-        </class>
-        <class className="GGKPottyAttemptCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/GGKPottyAttemptCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="attemptLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="timeLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="GGKPottyAttemptDayTableViewCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/GGKPottyAttemptDayTableViewCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="attempt1Label" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="dateLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="endMarkLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="startMarkLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="GGKPottyTrainerViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/GGKPottyTrainerViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="playButtonSound"/>
-            </relationships>
-        </class>
-        <class className="GGKRewardsViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/GGKRewardsViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="addReward:" candidateClass="UIButton"/>
-                <relationship kind="action" name="playButtonSound"/>
-                <relationship kind="outlet" name="numberOfSuccessesForReward1TextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="numberOfSuccessesForReward2TextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="numberOfSuccessesForReward3TextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="successfulPottiesLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="successfulPottiesTextView" candidateClass="UITextView"/>
-            </relationships>
-        </class>
-        <class className="GGKSettingsViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/GGKSettingsViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="playButtonSound"/>
-                <relationship kind="action" name="resetHistory"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

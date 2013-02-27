@@ -15,7 +15,7 @@ extern NSString *GGKBoyThemeString;
 extern NSString *GGKGirlThemeString;
 
 // Key for storing the number of successful potties done.
-extern NSString *GGKNumberOfSuccessfulPottiesKeyString;
+//extern NSString *GGKNumberOfSuccessfulPottiesKeyString;
 
 // Key for storing the date of a potty attempt. Object is an NSDate.
 extern NSString *GGKPottyAttemptDateKeyString;

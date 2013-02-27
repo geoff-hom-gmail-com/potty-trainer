@@ -8,12 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
-@interface GGKSettingsViewController : UIViewController
+@interface GGKSettingsViewController : UIViewController <UIAlertViewDelegate>
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex;
+// So, ???
 
 // Play sound as aural feedback for pressing button.
 - (IBAction)playButtonSound;
 
-// Ask the user to confirm that she wants to reset the history of potty attempts.
 - (IBAction)resetHistory;
+// Ask the user to confirm she wants to reset the history of potty attempts.
 
 @end
