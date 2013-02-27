@@ -13,9 +13,6 @@
 // For showing an attempt.
 @property (nonatomic, weak) IBOutlet UILabel *attempt1Label;
 
-// For showing another attempt.
-@property (nonatomic, weak) IBOutlet UILabel *attempt2Label;
-
 // For showing the date of the potty attempts. E.g., "2/22, Fri."
 @property (nonatomic, weak) IBOutlet UILabel *dateLabel;
 
@@ -34,7 +31,7 @@
 // For calculating the time from the start time.
 @property (strong, nonatomic) NSDateComponents *startTimeDateComponents;
 
-// Show the day's attempts properly. This includes showing the used labels, hiding unused default labels, removing unused extra labels, assigning success/not labels correctly, and aligning the labels visually.
+// Show the day's attempts properly. This includes removing unused extra labels, adding extra labels if necessary, assigning success/not labels correctly, and aligning the labels visually.
 - (void)showAttempts;
 
 // Show this cell's date. We want to show only the month and day (e.g., Feb 23).

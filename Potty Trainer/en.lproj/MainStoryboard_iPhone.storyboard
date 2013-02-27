@@ -298,7 +298,7 @@ Board</string>
                                             </connections>
                                         </button>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="6 AM" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="bdc-zy-USY">
-                                            <rect key="frame" x="87" y="49" width="41" height="21"/>
+                                            <rect key="frame" x="72" y="49" width="41" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -334,7 +334,7 @@ Board</string>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="|" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ZG6-sa-uk6">
-                                            <rect key="frame" x="87" y="11" width="41" height="21"/>
+                                            <rect key="frame" x="72" y="11" width="41" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -354,19 +354,11 @@ Board</string>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="✘" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="O7P-kt-hKB">
-                                            <rect key="frame" x="174" y="11" width="25" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <connections>
                                     <outlet property="attempt1Label" destination="XAv-ph-dcX" id="AV8-I2-GHf"/>
-                                    <outlet property="attempt2Label" destination="O7P-kt-hKB" id="DrL-ck-AeD"/>
                                     <outlet property="dateLabel" destination="L4L-R8-Wrp" id="fpU-pR-aPK"/>
                                     <outlet property="endMarkLabel" destination="pNr-fI-ARm" id="2oS-bL-LFt"/>
                                     <outlet property="startMarkLabel" destination="ZG6-sa-uk6" id="o12-rN-Z8Y"/>
@@ -695,6 +687,82 @@ Reward</string>
             <point key="canvasLocation" x="471" y="-193"/>
         </scene>
     </scenes>
+    <classes>
+        <class className="GGKAddPottyViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GGKAddPottyViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="playButtonSound"/>
+                <relationship kind="action" name="savePottyAttempt"/>
+                <relationship kind="outlet" name="datePicker" candidateClass="UIDatePicker"/>
+                <relationship kind="outlet" name="successfulSegmentedControl" candidateClass="UISegmentedControl"/>
+            </relationships>
+        </class>
+        <class className="GGKHistoryForDayTableViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GGKHistoryForDayTableViewController.h"/>
+        </class>
+        <class className="GGKHistoryHeaderCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GGKHistoryHeaderCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="endMarkLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="startMarkLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="GGKHistoryTableViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GGKHistoryTableViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="playButtonSound"/>
+            </relationships>
+        </class>
+        <class className="GGKPickChildViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GGKPickChildViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="playButtonSound"/>
+                <relationship kind="action" name="useBoyTheme"/>
+                <relationship kind="action" name="useGirlTheme"/>
+            </relationships>
+        </class>
+        <class className="GGKPottyAttemptCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GGKPottyAttemptCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="attemptLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="timeLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="GGKPottyAttemptDayTableViewCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GGKPottyAttemptDayTableViewCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="attempt1Label" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="dateLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="endMarkLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="startMarkLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="GGKPottyTrainerViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GGKPottyTrainerViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="playButtonSound"/>
+            </relationships>
+        </class>
+        <class className="GGKRewardsViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GGKRewardsViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="addReward:" candidateClass="UIButton"/>
+                <relationship kind="action" name="playButtonSound"/>
+                <relationship kind="outlet" name="numberOfSuccessesForReward1TextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="numberOfSuccessesForReward2TextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="numberOfSuccessesForReward3TextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="successfulPottiesLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="successfulPottiesTextView" candidateClass="UITextView"/>
+            </relationships>
+        </class>
+        <class className="GGKSettingsViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GGKSettingsViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="playButtonSound"/>
+                <relationship kind="action" name="resetHistory"/>
+            </relationships>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

@@ -34,52 +34,74 @@
     // Configure the view for the selected state
 }
 
-// Show the day's attempts properly. This includes showing the used labels, hiding unused default labels, removing unused extra labels, assigning success/not labels correctly, and aligning the labels visually.
 - (void)showAttempts
 {
     static NSString *CheckMarkString = @"\u2714";
     static NSString *XMarkString = @"\u2718";
+     
+//    NSLog(@"PADTVC updateAttemptLabels");
     
-    NSLog(@"PADTVC updateAttemptLabels");
-    self.attempt2Label.hidden = YES;
-    
-    NSDictionary *aPottyAttemptDictionary = self.pottyAttemptArray[0];
-    
-    // Assign success label.
-    NSNumber *theAttemptWasSuccessfulBOOLNumber = aPottyAttemptDictionary[GGKPottyAttemptWasSuccessfulNumberKeyString];
-    BOOL theAttemptWasSuccessfulBOOL = [theAttemptWasSuccessfulBOOLNumber boolValue];
-    NSString *theAttemptString;
-    if (theAttemptWasSuccessfulBOOL) {
+    // Remove extra labels (from previous uses of this cell).
+    NSArray *defaultLabels = @[self.dateLabel, self.startMarkLabel, self.endMarkLabel, self.attempt1Label];
+    [self.contentView.subviews enumerateObjectsUsingBlock:^(UIView *aView, NSUInteger idx, BOOL *stop) {
         
-        theAttemptString = CheckMarkString;
-    } else {
-        
-        theAttemptString = XMarkString;
-    }
-    self.attempt1Label.text = theAttemptString;
+        if ([aView isKindOfClass:[UILabel class]] && ![defaultLabels containsObject:aView]) {
+            
+            // This should work without crashing, because -subviews returns a copy of the array?
+            [aView removeFromSuperview];
+        }
+    }];
     
-    // Align label along timeline. If at or before the start time, put at start mark. If at or after the end time, put at end mark. Else, put between, at a proportionate amount.
-
-    NSInteger startXInteger = self.startMarkLabel.center.x;
-    NSInteger endXInteger = self.endMarkLabel.center.x;
-//    NSLog(@"PADTV sA startX:%d endX:%d", startXInteger, endXInteger);
-    
-    NSDate *aDate = aPottyAttemptDictionary[GGKPottyAttemptDateKeyString];
-    
-    NSInteger minutesAfterStartTimeInteger = [aDate minutesAfterTime:self.startTimeDateComponents];
-    CGPoint theNewCenterPoint;
-    if (minutesAfterStartTimeInteger < 0) {
+    [self.pottyAttemptArray enumerateObjectsUsingBlock:^(NSDictionary *aPottyAttemptDictionary, NSUInteger idx, BOOL *stop) {
         
-        theNewCenterPoint = CGPointMake(startXInteger, self.attempt1Label.center.y);
-    } else if (minutesAfterStartTimeInteger > self.endMinutesAfterStartTimeInteger) {
+        // Assign success label.
+        NSNumber *theAttemptWasSuccessfulBOOLNumber = aPottyAttemptDictionary[GGKPottyAttemptWasSuccessfulNumberKeyString];
+        BOOL theAttemptWasSuccessfulBOOL = [theAttemptWasSuccessfulBOOLNumber boolValue];
+        NSString *theAttemptString;
+        if (theAttemptWasSuccessfulBOOL) {
+            
+            theAttemptString = CheckMarkString;
+        } else {
+            
+            theAttemptString = XMarkString;
+        }
         
-        theNewCenterPoint = CGPointMake(endXInteger, self.attempt1Label.center.y);
-    } else {
+        // Align label along timeline. If at or before the start time, put at start mark. If at or after the end time, put at end mark. Else, put between, at a proportionate amount.
         
-        NSInteger theProportionalXInteger = (endXInteger - startXInteger) * minutesAfterStartTimeInteger / self.endMinutesAfterStartTimeInteger;
-        theNewCenterPoint = CGPointMake(startXInteger + theProportionalXInteger, self.attempt1Label.center.y);
-    }
-    self.attempt1Label.center = theNewCenterPoint;    
+        NSInteger startXInteger = self.startMarkLabel.center.x;
+        NSInteger endXInteger = self.endMarkLabel.center.x;
+        
+        NSDate *aDate = aPottyAttemptDictionary[GGKPottyAttemptDateKeyString];
+        
+        NSInteger minutesAfterStartTimeInteger = [aDate minutesAfterTime:self.startTimeDateComponents];
+        NSInteger theNewCenterXInteger;
+        if (minutesAfterStartTimeInteger < 0) {
+            
+            theNewCenterXInteger = startXInteger;
+        } else if (minutesAfterStartTimeInteger > self.endMinutesAfterStartTimeInteger) {
+            
+            theNewCenterXInteger = endXInteger;
+        } else {
+            
+            NSInteger theProportionalXInteger = (endXInteger - startXInteger) * minutesAfterStartTimeInteger / self.endMinutesAfterStartTimeInteger;
+            theNewCenterXInteger = startXInteger + theProportionalXInteger;
+        }
+        
+        if (idx == 0) {
+            
+            self.attempt1Label.text = theAttemptString;
+            self.attempt1Label.center = CGPointMake(theNewCenterXInteger, self.attempt1Label.center.y);            
+        } else {
+            
+            UILabel *aNewLabel = [[UILabel alloc] initWithFrame:self.attempt1Label.frame];
+            aNewLabel.opaque = NO;
+            aNewLabel.backgroundColor = [UIColor clearColor];
+            aNewLabel.textAlignment = UITextAlignmentCenter;
+            aNewLabel.text = theAttemptString;
+            aNewLabel.center = CGPointMake(theNewCenterXInteger, aNewLabel.center.y);
+            [self.contentView addSubview:aNewLabel];
+        }
+    }];
 }
 
 - (void)showDate
